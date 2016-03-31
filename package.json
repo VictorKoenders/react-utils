@@ -1,6 +1,6 @@
 {
   "name": "trangar-react-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Recurring utility functions used by Trangar",
   "repository": {
     "type": "git",
@@ -10,11 +10,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "watch_react": "./watch.bat",
+    "build_react": "./build.bat",
+    "run_server": "./run.bat"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "*",
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "watchify": "*",
+    "babelify": "*"
   }
 }
