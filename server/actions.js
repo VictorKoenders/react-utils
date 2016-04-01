@@ -81,11 +81,11 @@ module.exports = function(settings, express){
 			r.open(m,u);
 			r.addEventListener('load',function(){
 				try{
-					var result=JSON.parse(r.responseText);
-					if(result&&result.success!==false){
-						s(result);
+					var j=JSON.parse(r.responseText);
+					if(j&&j.success!==false){
+						s(j);
 					}else{
-						f(result.error);
+						f(j&&j.error?j.error:j);
 					}
 				}catch(ex){
 					f(ex);
@@ -131,7 +131,7 @@ module.exports = function(settings, express){
 				result += '\'';
 			}
 			if(args.length) {
-				result += '?' + args.map(a => a + '=\'' + a + '\'').join('&') + '\'';
+				result += '?' + args.map(a => a + '=\'+' + a + '+\'').join('&') + '\'';
 			}
 			result += ');';
 		} else {

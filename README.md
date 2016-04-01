@@ -45,3 +45,28 @@ Run
 ```
 node server
 ```
+
+actions/user/index.js
+---
+```
+function loadByID(id){
+    return {
+        id: id,
+        name: 'user ' + id
+    }
+}
+function login(username, password){
+    return new Promise(function(resolve, reject){
+        // database code here
+        resolve({
+            id: 0,
+            username: username
+        });
+    });
+}
+
+module.exports = {
+    get: [loadByID],
+    post: [login]
+};
+```

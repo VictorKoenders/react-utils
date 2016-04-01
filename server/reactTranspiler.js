@@ -21,7 +21,15 @@ module.exports = function(options){
 			});
 			b.transform('babelify', { presets: 'react,es2015' });
 
-			b.bundle().pipe(fs.createWriteStream(options.react.outputFile));
+			var start = Date.now(), count = 0;;
+			var stream = b.bundle();
+			stream.on('data', function(d){
+				count += d.length;
+			})
+			stream.on('end', function(){
+				console.log('transpiled ' + count + ' bytes in in ' + (Date.now() - start) + 'ms');
+			})
+			stream.pipe(fs.createWriteStream(options.react.outputFile));
 		} catch(ex){
 			console.error(ex);
 		}
