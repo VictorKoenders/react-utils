@@ -1,28 +1,31 @@
+"use strict";
 
-var react = require('react');
+import React from "react";
 
-class Input extends react.Component {
-    render() {
-        return React.createElement(
-            "div",
-            { className: "form-group" },
-            React.createElement(
-                "label",
-                { htmlFor: this.props.label, className: "control-label col-md-4" },
-                this.props.label
-            ),
-            React.createElement(
-                "div",
-                { className: "col-md-8" },
-                React.createElement("input", { type: "text", valueLink: this.props.valueLink, className: "form-control" })
-            )
-        );
-    }
+export default class Input extends React.Component {
+	render() {
+		return React.createElement(
+			"div",
+			{ className: "form-group" },
+			React.createElement(
+				"label",
+				{ htmlFor: this.props.label, className: "control-label col-md-4" },
+				this.props.label
+			),
+			React.createElement(
+				"div",
+				{ className: "col-md-8" },
+				React.createElement("input", { type: this.props.type || 'text', className: "form-control", valueLink: this.props.valueLink })
+			)
+		);
+	}
 }
 
 Input.propTypes = {
-    valueLink: react.PropTypes.object.isRequired,
-    label: react.PropTypes.string.isRequired
+	type: React.PropTypes.string,
+	label: React.PropTypes.string.isRequired,
+	valueLink: React.PropTypes.shape({
+		value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]).isRequired,
+		requestChange: React.PropTypes.func.isRequired
+	}).isRequired
 };
-
-module.exports = Input;

@@ -1,4 +1,7 @@
-module.exports = {
-    Input: require('./Input'),
-    Button: require('./Button')
+import Input from "./input";
+import Button from "./button";
+
+export default {
+    Input: Input,
+    Button: Button
 };

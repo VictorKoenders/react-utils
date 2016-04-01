@@ -1,6 +1,6 @@
 {
   "name": "trangar-react-utils",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Recurring utility functions used by Trangar",
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "//": "TODO: Implement our own http server, we don't use much of express' features",
   "dependencies": {
     "express": "*",
+    "body-parser": "*",
 
     "react": "*",
     "react-dom": "*",
@@ -28,7 +29,8 @@
 
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",
-    "watchify": "*",
-    "babelify": "*"
+    "browserify": "*",
+    "babelify": "*",
+	"mongoose": "*"
   }
 }

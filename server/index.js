@@ -1,25 +1,29 @@
-// TODO: Watch directory with actions and auto-update
-// TODO: Add database connections
-// TODO: Add public directory
-// TODO: Add source directory and auto-build that to the public directory
 module.exports = {
-    start: function(options){
-/*
-options = {
-    react: {
-        source: './source',
-        output: './public/build.js'
-    },
-    database: {
-        type: 'mongodb',
-        url: '',
-        schemaDirectory: './schema'
-    },
-    server: {
-        directory: './public/',
-        default: './public/index.html'
-    }
-};
- */
-    }
-};
+	start: function(options){
+		var express = startServer(options);
+		require('./actions')(options, express)
+		require('./reactTranspiler')(options);
+		// TODO: Database
+	}
+}
+
+function startServer(options){
+	var express = require('express');
+	var bodyParser = require('body-parser');
+
+	var app = express();
+
+	app.use(express.static(options.server.publicDirectory));
+	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(bodyParser.json());
+
+	app.get(/^(\/(?!api).*)$/, function (req, res) {
+		res.sendFile(options.server.defaultFile)
+	});
+
+	app.listen(options.server.port || 3000, function () {
+		console.log('Example app listening on port ' + (options.server.port || 3000) + '!');
+	});
+
+	return app;
+}
