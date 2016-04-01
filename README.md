@@ -17,14 +17,14 @@ File structure
 server.js
 ---------
 ```javascript
-var server = require('trangar-react-utils').server;
+var server = require('trangar-react-utils/server');
 server.start({
     react: {
         file: __dirname + '/src/client.jsx',
         outputFile: __dirname + '/public/build.js'
     },
     server: {
-        host: 8181,
+        port: 8181,
         publicDirectory: __dirname + '/public/',
         defaultFile: __dirname + '/public/index.html'
     },
@@ -43,20 +43,14 @@ server.start({
 actions/user/index.js
 ---
 ```javascript
+// in your browser, call "server.user.loadByID(id)"
 function loadByID(id){
-    return {
-        id: id,
-        name: 'user ' + id
-    }
+    return this.user.findOne({ _id: id })
 }
+// in your browser, call "server.user.login(username, password)"
 function login(username, password){
-    return new Promise(function(resolve, reject){
-        // database code here
-        resolve({
-            id: 0,
-            username: username
-        });
-    });
+	return this.user.findOne({ name: username })
+	      .then(validatePassword);
 }
 
 module.exports = {
