@@ -29,8 +29,10 @@ function initMongoose(options){
 	});
 
 	function loadSchema(path){
-		var fileName = path.substring(path.lastIndexOf('\\') + 1, path.indexOf('.'));
+		console.log('path', path);
+		var fileName = path.substring(path.lastIndexOf('\\') + 1, path.lastIndexOf('.'));
 		var resolved = require.resolve(path);
+		console.log('loading', fileName);
 		for(var x in mongoose.connection.models){
 			if(x.toLowerCase() == fileName){
 				console.log('reloading', x);
