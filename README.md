@@ -40,6 +40,8 @@ server.start({
  });
 ```
 
+Note: Only mongodb is supported for now
+
 actions/user/index.js
 ---
 ```javascript
@@ -92,6 +94,8 @@ class Main extends React.Component {
         return <h1>Hello from main</h1>
     }
 }
+
+// here you have access to server.user.login(username, password).then(...) and server.user.loadByID(id).then(...)
 
 var div = document.createElement('div');
 ReactDom.render(<Main />, div);

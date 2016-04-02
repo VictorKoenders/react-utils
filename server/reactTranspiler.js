@@ -18,6 +18,7 @@ module.exports = function(options){
 			console.log('detected change, transpiling!', options.react.file);
 			var b = browserify(options.react.file, {
 				extensions: ['.jsx'],
+				debug: true
 			});
 			b.transform('babelify', { presets: 'react,es2015' });
 
@@ -25,6 +26,9 @@ module.exports = function(options){
 			var stream = b.bundle();
 			stream.on('data', function(d){
 				count += d.length;
+			})
+			stream.on('error', function(e){
+				console.log('error', e);
 			})
 			stream.on('end', function(){
 				console.log('transpiled ' + count + ' bytes in in ' + (Date.now() - start) + 'ms');

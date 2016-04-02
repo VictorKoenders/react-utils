@@ -17,9 +17,9 @@ module.exports = function(settings, express){
 
 	function loadAction(file){
 		var x;
-		var url = require.resolve(settings.actions.directory + file);
-		delete require.cache[url];
 		try {
+			var url = require.resolve(settings.actions.directory + file);
+			delete require.cache[url];
 			var include = require(url);
 		} catch(ex){
 			console.error('could not load', url);

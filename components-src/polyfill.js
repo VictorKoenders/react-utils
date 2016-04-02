@@ -9,7 +9,7 @@ module.exports = function(){
 		}
 
 		return {
-			value: value,
+			value: value || "",
 			requestChange: newValue => {
 				var newState = {};
 				var newContext = newState;

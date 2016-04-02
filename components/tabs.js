@@ -18,45 +18,64 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Input = (function (_React$Component) {
-	_inherits(Input, _React$Component);
+var Tabs = (function (_React$Component) {
+	_inherits(Tabs, _React$Component);
 
-	function Input() {
-		_classCallCheck(this, Input);
+	function Tabs() {
+		_classCallCheck(this, Tabs);
 
-		return _possibleConstructorReturn(this, Object.getPrototypeOf(Input).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Tabs).call(this));
+
+		_this.state = {
+			selectedIndex: 0
+		};
+		return _this;
 	}
 
-	_createClass(Input, [{
+	_createClass(Tabs, [{
+		key: "select",
+		value: function select(index, e) {
+			if (e && e.preventDefault) e.preventDefault();
+			this.setState({
+				selectedIndex: index
+			});
+		}
+	}, {
+		key: "renderLabel",
+		value: function renderLabel(label, index) {
+			return _react2.default.createElement(
+				"li",
+				{ key: index, className: index == this.state.selectedIndex ? "active" : "" },
+				_react2.default.createElement(
+					"a",
+					{ href: "#", onClick: this.select.bind(this, index) },
+					label
+				)
+			);
+		}
+	}, {
 		key: "render",
 		value: function render() {
+			var Item = this.props.children[this.state.selectedIndex] || null;
 			return _react2.default.createElement(
 				"div",
-				{ className: "form-group" },
-				_react2.default.createElement(
-					"label",
-					{ htmlFor: this.props.label, className: "control-label col-md-4" },
-					this.props.label
-				),
+				null,
 				_react2.default.createElement(
 					"div",
-					{ className: "col-md-8" },
-					_react2.default.createElement("input", { type: this.props.type || 'text', className: "form-control", valueLink: this.props.valueLink })
-				)
+					{ className: "nav nav-tabs" },
+					this.props.labels.map(this.renderLabel.bind(this))
+				),
+				Item
 			);
 		}
 	}]);
 
-	return Input;
+	return Tabs;
 })(_react2.default.Component);
 
-exports.default = Input;
+exports.default = Tabs;
 
-Input.propTypes = {
-	type: _react2.default.PropTypes.string,
-	label: _react2.default.PropTypes.string.isRequired,
-	valueLink: _react2.default.PropTypes.shape({
-		value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]).isRequired,
-		requestChange: _react2.default.PropTypes.func.isRequired
-	}).isRequired
+Tabs.propTypes = {
+	labels: _react2.default.PropTypes.array.isRequired,
+	children: _react2.default.PropTypes.node.isRequired
 };
